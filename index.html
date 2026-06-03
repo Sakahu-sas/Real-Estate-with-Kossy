@@ -2,20 +2,26 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   .site { background: #fff; color: #0c1a2e; width: 100%; font-family: var(--font-sans); }
-
+  :root {
+  --navy: #0c2461;
+  --blue-200: #b5d4f4;
+  --blue-50: #e6f1fb;
+  --radius-sm: 8px;
+  --font-body: Arial, sans-serif;
+}
   /* NAV */
-  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 36px; background: #fff; border-bottom: 0.5px solid #dbe8f5; position: sticky; top: 0; z-index: 10; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; }
-  .nav-logo svg { width: 32px; height: 32px; }
-  .nav-logo-text { line-height: 1.1; }
-  .nav-logo-text .top { font-size: 10px; color: #4a6080; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; }
-  .nav-logo-text .bottom { font-size: 14px; color: #0c2461; font-weight: 500; letter-spacing: 0.5px; }
-  .nav-links { display: flex; gap: 26px; }
-  .nav-links a { font-size: 13px; color: #4a6080; text-decoration: none; }
-  .nav-links a:hover { color: #185fa5; }
-  .nav-cta { background: #0c2461; color: #fff; border: none; border-radius: 6px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; }
-  .nav-cta:hover { background: #185fa5; }
-
+  .topbar{background:var(--navy);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50}
+  .topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .topbar-logo svg{width:30px;height:30px;flex-shrink:0}
+  .logo-text .l1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase;display:block}
+  .logo-text .l2{font-size:14px;color:#fff;font-weight:500;display:block;line-height:1.2}
+  .topbar-nav{display:flex;gap:6px}
+  .topbar-nav a{font-size:13px;color:var(--blue-200);text-decoration:none;padding:6px 14px;border-radius:var(--radius-sm);transition:all 0.15s}
+  .topbar-nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+  .topbar-nav a.active{color:#fff;background:rgba(255,255,255,0.12)}
+  .topbar-cta{background:#fff;color:var(--navy);border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
+  .topbar-cta:hover{background:var(--blue-50)}
+ 
   /* HERO */
   .hero { position: relative; background: #0c2461; padding: 72px 36px 60px; text-align: center; overflow: hidden; }
   .hero-bg-lines { position: absolute; inset: 0; opacity: 0.06; }
