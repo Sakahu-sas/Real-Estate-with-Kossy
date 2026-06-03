@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listings — Real Estate with Kossy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0c2461;--navy-mid:#185fa5;--navy-light:#378add;
+  --blue-50:#e6f1fb;--blue-100:#b5d4f4;--blue-200:#85b7eb;
+  --text-primary:#0c1a2e;--text-secondary:#4a6080;--text-muted:#88a0bb;
+  --border:#dbe8f5;--bg:#f4f7fb;--surface:#ffffff;--surface-2:#f0f5fb;
+  --radius:12px;--radius-sm:8px;
+  --shadow:0 1px 4px rgba(12,36,97,0.07),0 4px 16px rgba(12,36,97,0.05);
+  --font-body:'DM Sans',sans-serif;--font-display:'DM Serif Display',serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);min-height:100vh}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50}
+.topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.topbar-logo svg{width:30px;height:30px;flex-shrink:0}
+.logo-text .l1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase;display:block}
+.logo-text .l2{font-size:14px;color:#fff;font-weight:500;display:block;line-height:1.2}
+.topbar-nav{display:flex;gap:6px}
+.topbar-nav a{font-size:13px;color:var(--blue-200);text-decoration:none;padding:6px 14px;border-radius:var(--radius-sm);transition:all 0.15s}
+.topbar-nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.topbar-nav a.active{color:#fff;background:rgba(255,255,255,0.12)}
+.topbar-cta{background:#fff;color:var(--navy);border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
+.topbar-cta:hover{background:var(--blue-50)}
+
+/* PAGE HEADER */
+.page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.page-header h1{font-family:var(--font-display);font-size:26px;font-weight:400;color:var(--navy)}
+.page-header p{font-size:13px;color:var(--text-secondary);margin-top:3px}
+.add-btn{background:var(--navy);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 20px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--font-body);transition:background 0.15s}
+.add-btn:hover{background:var(--navy-mid)}
+.add-btn i{font-size:16px}
+
+/* FILTERS */
+.filters{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-btn{background:transparent;border:1px solid var(--border);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:500;color:var(--text-secondary);cursor:pointer;font-family:var(--font-body);transition:all 0.15s}
+.filter-btn:hover:not(.active){border-color:var(--navy-mid);color:var(--navy-mid)}
+.filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filter-sep{flex:1}
+.search-wrap{position:relative}
+.search-wrap input{padding:8px 12px 8px 34px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface-2);font-size:13px;color:var(--text-primary);outline:none;width:200px;font-family:var(--font-body);transition:border-color 0.15s}
+.search-wrap input:focus{border-color:var(--navy-mid);background:#fff}
+.search-wrap i{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text-muted)}
+
+/* STATS */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 32px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow)}
+.stat-card .s-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
+.stat-card .s-val{font-size:26px;font-weight:500;color:var(--navy)}
+.stat-card .s-sub{font-size:11px;color:var(--text-muted);margin-top:3px}
+
+/* GRID */
+.listings-area{padding:0 32px 40px}
+.listings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+
+/* CARDS */
+.listing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:relative;box-shadow:var(--shadow);transition:transform 0.18s,box-shadow 0.18s}
+.listing-card:not(.new-slot):hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(12,36,97,0.12)}
+.new-slot{border:2px dashed var(--border)!important;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:330px;cursor:pointer;gap:10px;color:var(--text-muted);background:var(--surface)!important;box-shadow:none!important}
+.new-slot:hover{border-color:var(--navy-mid)!important;color:var(--navy-mid)!important;transform:none!important}
+.new-slot i{font-size:28px}
+.new-slot span{font-size:13px;font-weight:500}
+
+/* CARD IMAGE AREA */
+.card-img{height:160px;position:relative;overflow:hidden;cursor:pointer}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.card-img:hover img{transform:scale(1.04)}
+.card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+.card-img-placeholder i{font-size:36px;opacity:0.35}
+.card-img-placeholder span{font-size:11px;opacity:0.45}
+.img-1{background:#cfe0f5;color:var(--navy)}
+.img-2{background:#dce9f8;color:var(--navy-mid)}
+.img-3{background:#e6f1fb;color:var(--navy-light)}
+.img-4{background:#c3d8f0;color:var(--navy)}
+.img-count{position:absolute;bottom:8px;right:8px;background:rgba(12,26,46,0.65);color:#fff;font-size:11px;padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.img-count i{font-size:12px}
+
+.card-badge{position:absolute;top:10px;left:10px;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500;letter-spacing:0.3px;z-index:2}
+.b-sale{background:var(--navy);color:#fff}
+.b-rent{background:var(--navy-mid);color:#fff}
+.b-shortlet{background:var(--navy-light);color:#fff}
+.b-sold{background:#7a8fa6;color:#fff}
+
+.card-actions{position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity 0.15s;z-index:3}
+.listing-card:hover .card-actions{opacity:1}
+.card-actions button{background:rgba(255,255,255,0.95);border:1px solid rgba(12,36,97,0.12);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--navy);transition:background 0.12s}
+.card-actions button:hover{background:#fff}
+.card-actions button.del-btn:hover{background:#fee;color:#a32d2d}
+
+.card-body{padding:16px}
+.card-title{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-loc{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:3px;margin-bottom:12px}
+.card-loc i{font-size:13px}
+.card-price{font-size:18px;font-weight:500;color:var(--navy-mid);margin-bottom:12px}
+.card-price span{font-size:11px;color:var(--text-muted);font-weight:400}
+.card-meta{display:flex;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--border)}
+.card-meta span{font-size:11px;color:var(--text-secondary);display:flex;align-items:center;gap:3px}
+.card-meta i{font-size:13px}
+
+/* SLIDESHOW LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(8,18,36,0.95);z-index:500;flex-direction:column}
+.lightbox.open{display:flex}
+.lb-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;flex-shrink:0}
+.lb-title{font-family:var(--font-display);font-size:20px;color:#fff;font-weight:400}
+.lb-meta{font-size:13px;color:var(--blue-200);margin-top:2px}
+.lb-close{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:#fff;transition:background 0.15s}
+.lb-close:hover{background:rgba(255,255,255,0.2)}
+.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0 64px}
+.lb-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;transition:opacity 0.25s}
+.lb-img.fade{opacity:0}
+.lb-placeholder{display:flex;flex-direction:column;align-items:center;gap:12px;color:rgba(255,255,255,0.3)}
+.lb-placeholder i{font-size:64px}
+.lb-placeholder span{font-size:14px}
+.lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:#fff;transition:background 0.15s;flex-shrink:0}
+.lb-arrow:hover{background:rgba(255,255,255,0.22)}
+.lb-arrow.prev{left:10px}
+.lb-arrow.next{right:10px}
+.lb-arrow.hidden{opacity:0;pointer-events:none}
+.lb-footer{padding:16px 24px;flex-shrink:0}
+.lb-dots{display:flex;justify-content:center;gap:8px;margin-bottom:12px}
+.lb-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer;transition:background 0.15s,transform 0.15s}
+.lb-dot.active{background:#fff;transform:scale(1.2)}
+.lb-thumbs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.lb-thumb{width:60px;height:45px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:0.5;border:2px solid transparent;transition:opacity 0.15s,border-color 0.15s}
+.lb-thumb.active{opacity:1;border-color:#fff}
+.lb-counter{text-align:center;font-size:12px;color:var(--blue-200);margin-top:8px}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(12,26,46,0.45);z-index:200;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:16px;border:1px solid var(--border);width:100%;max-width:560px;padding:30px;box-shadow:0 8px 40px rgba(12,36,97,0.15);animation:slideUp 0.2s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.modal-header h2{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--navy)}
+.modal-close{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text-secondary);transition:all 0.12s}
+.modal-close:hover{background:#fff;color:var(--text-primary)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.7px;font-weight:500}
+.field input,.field select,.field textarea{border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;font-size:13px;color:var(--text-primary);background:var(--surface-2);outline:none;font-family:var(--font-body);transition:border-color 0.15s,background 0.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy-mid);background:#fff}
+.field textarea{resize:vertical;min-height:75px}
+
+/* IMAGE UPLOAD AREA */
+.img-upload-area{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:20px;text-align:center;cursor:pointer;transition:border-color 0.15s,background 0.15s;position:relative}
+.img-upload-area:hover{border-color:var(--navy-mid);background:var(--blue-50)}
+.img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-upload-area i{font-size:24px;color:var(--text-muted);margin-bottom:6px;display:block}
+.img-upload-area .up-title{font-size:13px;color:var(--text-secondary);font-weight:500}
+.img-upload-area .up-sub{font-size:11px;color:var(--text-muted);margin-top:3px}
+.img-previews{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.img-preview-wrap{position:relative;width:72px;height:54px;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.img-preview-wrap img{width:100%;height:100%;object-fit:cover}
+.img-preview-wrap .rm-img{position:absolute;top:2px;right:2px;background:rgba(163,45,45,0.9);color:#fff;border:none;border-radius:4px;width:18px;height:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;line-height:1}
+.img-preview-wrap .rm-img:hover{background:#a32d2d}
+
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.btn-cancel{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 20px;font-size:13px;color:var(--text-secondary);cursor:pointer;font-family:var(--font-body);transition:all 0.12s}
+.btn-cancel:hover{border-color:var(--text-muted);color:var(--text-primary)}
+.btn-save{background:var(--navy);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 26px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
+.btn-save:hover{background:var(--navy-mid)}
+
+/* DELETE */
+.del-overlay{display:none;position:fixed;inset:0;background:rgba(12,26,46,0.5);z-index:300;align-items:center;justify-content:center}
+.del-overlay.open{display:flex}
+.del-modal{background:var(--surface);border-radius:16px;border:1px solid var(--border);padding:32px;max-width:360px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(12,36,97,0.18);animation:slideUp 0.18s ease}
+.del-icon{font-size:32px;color:#a32d2d;margin-bottom:14px}
+.del-modal h3{font-family:var(--font-display);font-size:18px;font-weight:400;color:var(--text-primary);margin-bottom:8px}
+.del-modal p{font-size:13px;color:var(--text-secondary);margin-bottom:24px;line-height:1.6}
+.del-btns{display:flex;gap:10px;justify-content:center}
+.btn-del{background:#a32d2d;color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 22px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.12s}
+.btn-del:hover{background:#791f1f}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--navy);color:#fff;border-radius:10px;padding:13px 20px;font-size:13px;display:none;z-index:600;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(12,36,97,0.25)}
+.toast.show{display:flex}
+.toast i{font-size:17px;color:var(--blue-200)}
+.toast.err{background:#a32d2d}
+.toast.err i{color:#f7c1c1}
+
+/* FOOTER */
+.site-footer{background:var(--navy);padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand .fb1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase}
+.footer-brand .fb2{font-size:14px;color:#fff;font-weight:500}
+.footer-brand .fb3{font-size:12px;color:var(--blue-200);font-style:italic;margin-top:2px}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:12px;color:var(--blue-200);text-decoration:none;transition:color 0.12s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px;color:#3a5580}
+
+@media(max-width:640px){
+  .topbar{padding:0 16px}
+  .topbar-nav{display:none}
+  .page-header,.filters{padding:18px 16px}
+  .stats-strip{grid-template-columns:1fr 1fr;padding:16px}
+  .listings-area{padding:0 16px 32px}
+  .site-footer{padding:24px 16px;flex-direction:column;align-items:flex-start}
+  .lb-stage{padding:0 44px}
+  .lb-arrow{width:36px;height:36px;font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-logo" href="#">
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="13" width="7" height="13" rx="1" stroke="#85b7eb" stroke-width="1.5"/>
+      <rect x="11" y="7" width="8" height="19" rx="1" stroke="#ffffff" stroke-width="1.5"/>
+      <rect x="20" y="10" width="7" height="16" rx="1" stroke="#85b7eb" stroke-width="1.5"/>
+      <line x1="1" y1="26" x2="29" y2="26" stroke="#85b7eb" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text">
+      <span class="l1">Real Estate</span>
+      <span class="l2">with Kossy</span>
+    </div>
+  </a>
+  <nav class="topbar-nav">
+    <a href="#">Home</a>
+    <a href="#" class="active">Listings</a>
+    <a href="#">Services</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="topbar-cta">Book consultation</button>
+</header>
+
+<div class="page-header">
+  <div>
+    <h1>Property Listings</h1>
+    <p>Manage, add and update all property listings — Your Luxury, Our Guarantee</p>
+  </div>
+  <button class="add-btn" onclick="openAddModal()">
+    <i class="ti ti-plus" aria-hidden="true"></i> Add new property
+  </button>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('All',this)">All</button>
+  <button class="filter-btn" onclick="filterCards('For sale',this)">For sale</button>
+  <button class="filter-btn" onclick="filterCards('For rent',this)">For rent</button>
+  <button class="filter-btn" onclick="filterCards('Shortlet',this)">Shortlet</button>
+  <button class="filter-btn" onclick="filterCards('Sold',this)">Sold</button>
+  <div class="filter-sep"></div>
+  <div class="search-wrap">
+    <i class="ti ti-search" aria-hidden="true"></i>
+    <input type="text" id="searchInput" placeholder="Search listings…" oninput="applyFilter()">
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-card"><div class="s-label">Total listings</div><div class="s-val" id="statTotal">0</div><div class="s-sub">All properties</div></div>
+  <div class="stat-card"><div class="s-label">For sale</div><div class="s-val" id="statSale">0</div><div class="s-sub">Active listings</div></div>
+  <div class="stat-card"><div class="s-label">For rent</div><div class="s-val" id="statRent">0</div><div class="s-sub">Available now</div></div>
+  <div class="stat-card"><div class="s-label">Shortlets</div><div class="s-val" id="statShort">0</div><div class="s-sub">Short stay</div></div>
+</div>
+
+<div class="listings-area">
+  <div class="listings-grid" id="listingsGrid"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-brand">
+    <div class="fb1">Real Estate</div>
+    <div class="fb2">with Kossy</div>
+    <div class="fb3">Your Luxury, Our Guarantee</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">For sale</a><a href="#">For rent</a><a href="#">Shortlets</a><a href="#">About</a><a href="#">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Real Estate with Kossy. All rights reserved.</div>
+</footer>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <h2 id="modalTitle">Add new property</h2>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+    </div>
+    <div class="form-grid">
+      <div class="field form-full">
+        <label>Property title</label>
+        <input type="text" id="f-title" placeholder="e.g. 5-bedroom detached duplex">
+      </div>
+      <div class="field">
+        <label>Location</label>
+        <input type="text" id="f-loc" placeholder="e.g. Lekki Phase 1, Lagos">
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="f-status">
+          <option>For sale</option><option>For rent</option><option>Shortlet</option><option>Sold</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Price (₦)</label>
+        <input type="text" id="f-price" placeholder="e.g. 180,000,000">
+      </div>
+      <div class="field">
+        <label>Price suffix</label>
+        <input type="text" id="f-suffix" placeholder="e.g. / year, / night">
+      </div>
+      <div class="field">
+        <label>Bedrooms</label>
+        <input type="number" id="f-beds" placeholder="0" min="0">
+      </div>
+      <div class="field">
+        <label>Bathrooms</label>
+        <input type="number" id="f-baths" placeholder="0" min="0">
+      </div>
+      <div class="field">
+        <label>Size</label>
+        <input type="text" id="f-size" placeholder="e.g. 450 sqm">
+      </div>
+      <div class="field">
+        <label>Property type</label>
+        <select id="f-type">
+          <option>Residential</option><option>Commercial</option><option>Land</option>
+        </select>
+      </div>
+      <div class="field form-full">
+        <label>Description (optional)</label>
+        <textarea id="f-desc" placeholder="Brief description of the property…"></textarea>
+      </div>
+      <div class="field form-full">
+        <label>Property images</label>
+        <div class="img-upload-area" id="uploadArea">
+          <input type="file" id="f-images" accept="image/*" multiple onchange="handleImageUpload(event)">
+          <i class="ti ti-photo-up" aria-hidden="true"></i>
+          <div class="up-title">Click to upload images</div>
+          <div class="up-sub">JPG, PNG, WEBP — up to 10 images per listing</div>
+        </div>
+        <div class="img-previews" id="imgPreviews"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveProperty()">Save property</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="del-overlay" id="delOverlay">
+  <div class="del-modal" role="dialog" aria-modal="true">
+    <div class="del-icon"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+    <h3>Remove this listing?</h3>
+    <p>This will permanently remove the property from your listings. This cannot be undone.</p>
+    <div class="del-btns">
+      <button class="btn-cancel" onclick="closeDelModal()">Cancel</button>
+      <button class="btn-del" onclick="confirmDelete()">Yes, remove it</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDESHOW LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Property slideshow">
+  <div class="lb-header">
+    <div>
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-meta" id="lbMeta"></div>
+    </div>
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close slideshow"><i class="ti ti-x" aria-hidden="true"></i></button>
+  </div>
+  <div class="lb-stage">
+    <button class="lb-arrow prev" id="lbPrev" onclick="lbNav(-1)" aria-label="Previous image"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+    <img class="lb-img" id="lbImg" src="" alt="Property image">
+    <div class="lb-placeholder" id="lbPlaceholder" style="display:none">
+      <i class="ti ti-building-estate" aria-hidden="true"></i>
+      <span>No images uploaded for this property</span>
+    </div>
+    <button class="lb-arrow next" id="lbNext" onclick="lbNav(1)" aria-label="Next image"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+  </div>
+  <div class="lb-footer">
+    <div class="lb-dots" id="lbDots"></div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <i class="ti ti-check" aria-hidden="true" id="toastIcon"></i>
+  <span id="toastMsg">Property saved</span>
+</div>
+
+<script>
+const imgClasses = ['img-1','img-2','img-3','img-4'];
+const iconClasses = ['ti-building','ti-home','ti-building-skyscraper','ti-building-estate','ti-smart-home'];
+
+let properties = [
+  {id:1,title:'5-bedroom detached duplex',loc:'Lekki Phase 1, Lagos',status:'For sale',price:'180,000,000',suffix:'',beds:5,baths:4,size:'450 sqm',type:'Residential',desc:'Luxurious detached duplex in a prime Lekki location with BQ, swimming pool and 24/7 power.',images:[]},
+  {id:2,title:'3-bedroom serviced apartment',loc:'Maitama, Abuja',status:'For rent',price:'9,500,000',suffix:'/ year',beds:3,baths:3,size:'220 sqm',type:'Residential',desc:'Fully serviced apartment with gym, concierge and generator backup.',images:[]},
+  {id:3,title:'Commercial office space',loc:'Victoria Island, Lagos',status:'For sale',price:'350,000,000',suffix:'',beds:0,baths:0,size:'800 sqm',type:'Commercial',desc:'Prime commercial floor space in the heart of Victoria Island.',images:[]},
+  {id:4,title:'Luxury 4-bedroom terrace',loc:'Banana Island, Lagos',status:'Sold',price:'450,000,000',suffix:'',beds:4,baths:4,size:'380 sqm',type:'Residential',desc:'',images:[]},
+  {id:5,title:'2-bedroom shortlet apartment',loc:'Ikoyi, Lagos',status:'Shortlet',price:'85,000',suffix:'/ night',beds:2,baths:2,size:'120 sqm',type:'Residential',desc:'Elegant shortlet with sea view, Netflix, and fully fitted kitchen.',images:[]},
+];
+let nextId = 6;
+let editingId = null;
+let deletingId = null;
+let activeFilter = 'All';
+let pendingImages = []; // base64 strings for current form session
+
+// ── LIGHTBOX STATE ──
+let lbImages = [];
+let lbIndex = 0;
+
+function badgeClass(s){
+  if(s==='For sale') return 'b-sale';
+  if(s==='For rent') return 'b-rent';
+  if(s==='Shortlet') return 'b-shortlet';
+  return 'b-sold';
+}
+function fmtPrice(val){
+  const n = parseFloat(String(val).replace(/[₦,\s]/g,''));
+  return isNaN(n) ? val : '₦'+n.toLocaleString('en-NG');
+}
+
+function renderCards(list){
+  const grid = document.getElementById('listingsGrid');
+  let html = '';
+  list.forEach(p => {
+    const ic = iconClasses[p.id % iconClasses.length];
+    const im = imgClasses[p.id % imgClasses.length];
+    const hasImgs = p.images && p.images.length > 0;
+    const imgHtml = hasImgs
+      ? `<img src="${p.images[0]}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block">`
+      : `<div class="card-img-placeholder ${im}"><i class="ti ${ic}" aria-hidden="true"></i><span>No images yet</span></div>`;
+    const countBadge = hasImgs && p.images.length > 1
+      ? `<div class="img-count"><i class="ti ti-photo" aria-hidden="true"></i>${p.images.length}</div>` : '';
+    const metaHtml =
+      (p.beds>0?`<span><i class="ti ti-bed" aria-hidden="true"></i> ${p.beds} beds</span>`:'') +
+      (p.baths>0?`<span><i class="ti ti-bath" aria-hidden="true"></i> ${p.baths} baths</span>`:'') +
+      (p.size?`<span><i class="ti ti-ruler" aria-hidden="true"></i> ${p.size}</span>`:'');
+    html += `
+      <article class="listing-card" id="card-${p.id}">
+        <div class="card-img" onclick="openLightbox(${p.id})" style="cursor:pointer" title="Click to view photos">
+          ${imgHtml}
+          <span class="card-badge ${badgeClass(p.status)}">${p.status}</span>
+          ${countBadge}
+          <div class="card-actions">
+            <button onclick="event.stopPropagation();openEditModal(${p.id})" aria-label="Edit property"><i class="ti ti-edit" aria-hidden="true"></i></button>
+            <button class="del-btn" onclick="event.stopPropagation();openDelModal(${p.id})" aria-label="Delete property"><i class="ti ti-trash" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title" title="${p.title}">${p.title}</div>
+          <div class="card-loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${p.loc}</div>
+          <div class="card-price">${fmtPrice(p.price)} <span>${p.suffix}</span></div>
+          <div class="card-meta">${metaHtml||'<span style="color:var(--text-muted);font-size:11px">Commercial / Land</span>'}</div>
+        </div>
+      </article>`;
+  });
+  html += `<div class="listing-card new-slot" onclick="openAddModal()" role="button" tabindex="0" aria-label="Add new listing"><i class="ti ti-plus" aria-hidden="true"></i><span>Add new listing</span></div>`;
+  grid.innerHTML = html;
+  updateStats();
+}
+
+function updateStats(){
+  document.getElementById('statTotal').textContent = properties.length;
+  document.getElementById('statSale').textContent = properties.filter(p=>p.status==='For sale').length;
+  document.getElementById('statRent').textContent = properties.filter(p=>p.status==='For rent').length;
+  document.getElementById('statShort').textContent = properties.filter(p=>p.status==='Shortlet').length;
+}
+
+function applyFilter(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let list = activeFilter==='All' ? properties : properties.filter(p=>p.status===activeFilter);
+  if(q) list = list.filter(p=>p.title.toLowerCase().includes(q)||p.loc.toLowerCase().includes(q));
+  renderCards(list);
+}
+
+function filterCards(f,btn){
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter();
+}
+
+// ── IMAGE UPLOAD ──
+function handleImageUpload(e){
+  const files = Array.from(e.target.files);
+  const remaining = 10 - pendingImages.length;
+  if(remaining <= 0){ showToast('Maximum 10 images per listing','err'); return; }
+  const toLoad = files.slice(0, remaining);
+  toLoad.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      pendingImages.push(ev.target.result);
+      renderPreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+}
+
+function renderPreviews(){
+  const container = document.getElementById('imgPreviews');
+  container.innerHTML = pendingImages.map((src,i) => `
+    <div class="img-preview-wrap">
+      <img src="${src}" alt="Preview ${i+1}">
+      <button class="rm-img" onclick="removeImg(${i})" aria-label="Remove image">×</button>
+    </div>`).join('');
+}
+
+function removeImg(idx){
+  pendingImages.splice(idx, 1);
+  renderPreviews();
+}
+
+// ── MODAL OPEN/CLOSE ──
+function clearForm(){
+  ['f-title','f-loc','f-price','f-suffix','f-beds','f-baths','f-size','f-desc'].forEach(id=>{ document.getElementById(id).value=''; });
+  document.getElementById('f-status').value = 'For sale';
+  document.getElementById('f-type').value = 'Residential';
+  pendingImages = [];
+  renderPreviews();
+}
+
+function openAddModal(){
+  editingId = null;
+  clearForm();
+  document.getElementById('modalTitle').textContent = 'Add new property';
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('f-title').focus(), 50);
+}
+
+function openEditModal(id){
+  const p = properties.find(x=>x.id===id);
+  if(!p) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit property';
+  document.getElementById('f-title').value = p.title;
+  document.getElementById('f-loc').value = p.loc;
+  document.getElementById('f-status').value = p.status;
+  document.getElementById('f-price').value = p.price;
+  document.getElementById('f-suffix').value = p.suffix;
+  document.getElementById('f-beds').value = p.beds;
+  document.getElementById('f-baths').value = p.baths;
+  document.getElementById('f-size').value = p.size;
+  document.getElementById('f-type').value = p.type;
+  document.getElementById('f-desc').value = p.desc;
+  pendingImages = [...(p.images||[])];
+  renderPreviews();
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('f-title').focus(), 50);
+}
+
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+
+function saveProperty(){
+  const title = document.getElementById('f-title').value.trim();
+  const loc   = document.getElementById('f-loc').value.trim();
+  const price = document.getElementById('f-price').value.trim();
+  if(!title||!loc||!price){ showToast('Please fill in title, location and price',true); return; }
+  const data = {
+    title, loc, price,
+    status: document.getElementById('f-status').value,
+    suffix: document.getElementById('f-suffix').value.trim(),
+    beds:   parseInt(document.getElementById('f-beds').value)||0,
+    baths:  parseInt(document.getElementById('f-baths').value)||0,
+    size:   document.getElementById('f-size').value.trim(),
+    type:   document.getElementById('f-type').value,
+    desc:   document.getElementById('f-desc').value.trim(),
+    images: [...pendingImages],
+  };
+  if(editingId){
+    const idx = properties.findIndex(p=>p.id===editingId);
+    properties[idx] = {...properties[idx],...data};
+    showToast('Property updated successfully');
+  } else {
+    properties.push({id:nextId++,...data});
+    showToast('Property added successfully');
+  }
+  closeModal();
+  applyFilter();
+}
+
+function openDelModal(id){ deletingId=id; document.getElementById('delOverlay').classList.add('open'); }
+function closeDelModal(){ document.getElementById('delOverlay').classList.remove('open'); deletingId=null; }
+function confirmDelete(){
+  properties = properties.filter(p=>p.id!==deletingId);
+  closeDelModal();
+  applyFilter();
+  showToast('Listing removed');
+}
+
+// ── LIGHTBOX ──
+function openLightbox(id){
+  const p = properties.find(x=>x.id===id);
+  if(!p) return;
+  lbImages = p.images||[];
+  lbIndex = 0;
+  document.getElementById('lbTitle').textContent = p.title;
+  document.getElementById('lbMeta').textContent = p.loc + ' · ' + p.status;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderLightbox();
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderLightbox(){
+  const img = document.getElementById('lbImg');
+  const placeholder = document.getElementById('lbPlaceholder');
+  const prev = document.getElementById('lbPrev');
+  const next = document.getElementById('lbNext');
+
+  if(lbImages.length === 0){
+    img.style.display = 'none';
+    placeholder.style.display = 'flex';
+    prev.classList.add('hidden');
+    next.classList.add('hidden');
+    document.getElementById('lbDots').innerHTML = '';
+    document.getElementById('lbThumbs').innerHTML = '';
+    document.getElementById('lbCounter').textContent = 'No photos uploaded';
+    return;
+  }
+
+  placeholder.style.display = 'none';
+  img.style.display = 'block';
+  img.classList.add('fade');
+  setTimeout(()=>{
+    img.src = lbImages[lbIndex];
+    img.alt = 'Property photo ' + (lbIndex+1);
+    img.classList.remove('fade');
+  }, 120);
+
+  prev.classList.toggle('hidden', lbIndex===0);
+  next.classList.toggle('hidden', lbIndex===lbImages.length-1);
+
+  // Dots
+  document.getElementById('lbDots').innerHTML = lbImages.map((_,i)=>
+    `<div class="lb-dot${i===lbIndex?' active':''}" onclick="lbGoTo(${i})" aria-label="Photo ${i+1}"></div>`
+  ).join('');
+
+  // Thumbnails
+  document.getElementById('lbThumbs').innerHTML = lbImages.map((src,i)=>
+    `<img class="lb-thumb${i===lbIndex?' active':''}" src="${src}" alt="Thumbnail ${i+1}" onclick="lbGoTo(${i})">`
+  ).join('');
+
+  document.getElementById('lbCounter').textContent = `${lbIndex+1} of ${lbImages.length}`;
+}
+
+function lbNav(dir){
+  const newIdx = lbIndex + dir;
+  if(newIdx < 0 || newIdx >= lbImages.length) return;
+  lbIndex = newIdx;
+  renderLightbox();
+}
+
+function lbGoTo(idx){ lbIndex = idx; renderLightbox(); }
+
+// ── TOAST ──
+let toastTimer;
+function showToast(msg, isErr){
+  const t = document.getElementById('toast');
+  const icon = document.getElementById('toastIcon');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast show' + (isErr ? ' err' : '');
+  icon.className = isErr ? 'ti ti-alert-circle' : 'ti ti-check';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+// ── KEYBOARD & BACKDROP ──
+document.getElementById('modalOverlay').addEventListener('click', e=>{ if(e.target===document.getElementById('modalOverlay')) closeModal(); });
+document.getElementById('delOverlay').addEventListener('click', e=>{ if(e.target===document.getElementById('delOverlay')) closeDelModal(); });
+document.getElementById('lightbox').addEventListener('click', e=>{ if(e.target===document.getElementById('lightbox')) closeLightbox(); });
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ closeModal(); closeDelModal(); closeLightbox(); }
+  if(document.getElementById('lightbox').classList.contains('open')){
+    if(e.key==='ArrowLeft') lbNav(-1);
+    if(e.key==='ArrowRight') lbNav(1);
+  }
+});
+
+renderCards(properties);
+</script>
+</body>
+</html>
