@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Real Estate with Kossy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0c2461;--navy-mid:#185fa5;--navy-light:#378add;
+  --blue-50:#e6f1fb;--blue-100:#b5d4f4;--blue-200:#85b7eb;
+  --text-primary:#0c1a2e;--text-secondary:#4a6080;--text-muted:#88a0bb;
+  --border:#dbe8f5;--bg:#f4f7fb;--surface:#ffffff;--surface-2:#f0f5fb;
+  --radius:12px;--radius-sm:8px;
+  --font-body:'DM Sans',sans-serif;--font-display:'DM Serif Display',serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50}
+.topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.topbar-logo svg{width:30px;height:30px;flex-shrink:0}
+.logo-text .l1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase;display:block}
+.logo-text .l2{font-size:14px;color:#fff;font-weight:500;display:block;line-height:1.2}
+.topbar-nav{display:flex;gap:4px}
+.topbar-nav a{font-size:13px;color:var(--blue-200);text-decoration:none;padding:6px 14px;border-radius:var(--radius-sm);transition:all 0.15s}
+.topbar-nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.topbar-nav a.active{color:#fff;background:rgba(255,255,255,0.13)}
+.topbar-cta{background:#fff;color:var(--navy);border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
+.topbar-cta:hover{background:var(--blue-50)}
+
+/* ── HERO ── */
+.hero{background:var(--navy);padding:72px 40px 64px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 120%,rgba(24,95,165,0.35) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{display:inline-block;background:rgba(181,212,244,0.15);color:var(--blue-200);font-size:11px;font-weight:500;border-radius:20px;padding:4px 16px;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase;border:0.5px solid rgba(181,212,244,0.28)}
+.hero h1{font-family:var(--font-display);font-size:44px;font-weight:400;color:#fff;line-height:1.15;max-width:580px;margin:0 auto 16px;letter-spacing:-0.3px}
+.hero h1 em{color:var(--blue-200);font-style:normal}
+.hero p{font-size:16px;color:var(--blue-100);max-width:500px;margin:0 auto 36px;line-height:1.75}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-white{background:#fff;color:var(--navy);border:none;border-radius:var(--radius-sm);padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
+.btn-white:hover{background:var(--blue-50)}
+.btn-outline-white{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.35);border-radius:var(--radius-sm);padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all 0.15s}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,0.08)}
+
+/* ── SECTION SHARED ── */
+section{padding:72px 40px}
+.sec-eyebrow{font-size:11px;color:var(--navy-mid);text-transform:uppercase;letter-spacing:1.2px;font-weight:500;text-align:center;margin-bottom:8px}
+.sec-title{font-family:var(--font-display);font-size:34px;font-weight:400;text-align:center;color:var(--navy);margin-bottom:12px;letter-spacing:-0.2px}
+.sec-sub{font-size:15px;color:var(--text-secondary);text-align:center;max-width:500px;margin:0 auto 52px;line-height:1.75}
+
+/* ── SERVICES GRID ── */
+.services-section{background:var(--surface)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;max-width:960px;margin:0 auto}
+.svc-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--navy);transform:scaleY(0);transform-origin:bottom;transition:transform 0.25s}
+.svc-card:hover{border-color:var(--blue-100);transform:translateY(-3px);box-shadow:0 8px 28px rgba(12,36,97,0.09)}
+.svc-card:hover::before{transform:scaleY(1)}
+.svc-icon{width:48px;height:48px;background:var(--navy);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.svc-icon i{color:#fff;font-size:24px}
+.svc-card h3{font-size:16px;font-weight:500;color:var(--navy);margin-bottom:10px}
+.svc-card p{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px}
+.svc-tag{display:inline-block;background:var(--blue-50);color:var(--navy-mid);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--bg)}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;max-width:860px;margin:0 auto;position:relative}
+.how-grid::before{content:'';position:absolute;top:28px;left:60px;right:60px;height:1px;background:var(--blue-100);z-index:0}
+.how-step{text-align:center;padding:0 16px;position:relative;z-index:1}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;font-size:18px;font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:var(--font-display);box-shadow:0 0 0 8px var(--bg)}
+.how-step h4{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:8px}
+.how-step p{font-size:13px;color:var(--text-secondary);line-height:1.6}
+
+/* ── TESTIMONIALS ── */
+.testi-section{background:var(--navy)}
+.testi-section .sec-eyebrow{color:var(--blue-200)}
+.testi-section .sec-title{color:#fff}
+.testi-section .sec-sub{color:var(--blue-100)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;max-width:900px;margin:0 auto}
+.testi-card{background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.13);border-radius:var(--radius);padding:24px}
+.testi-stars{color:var(--blue-200);font-size:15px;margin-bottom:12px;letter-spacing:2px}
+.testi-card blockquote{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.75;margin-bottom:18px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-av{width:38px;height:38px;border-radius:50%;background:var(--navy-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#fff;flex-shrink:0}
+.testi-name{font-size:13px;font-weight:500;color:#fff}
+.testi-role{font-size:11px;color:var(--blue-200);margin-top:2px}
+.testi-svc{display:inline-block;margin-top:6px;background:rgba(181,212,244,0.15);color:var(--blue-200);font-size:10px;padding:2px 8px;border-radius:20px;border:0.5px solid rgba(181,212,244,0.25)}
+
+/* ── CTA ── */
+.cta-section{background:var(--blue-50);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;padding:80px 40px}
+.cta-section .sec-title{color:var(--navy);margin-bottom:10px}
+.cta-motto{font-size:14px;color:var(--navy-mid);font-style:italic;margin-bottom:12px}
+.cta-section p{font-size:15px;color:var(--text-secondary);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto}
+.cta-form{display:flex;gap:10px;justify-content:center;max-width:420px;margin:0 auto;flex-wrap:wrap}
+.cta-form input{flex:1;min-width:180px;padding:12px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);font-size:14px;outline:none;font-family:var(--font-body);background:#fff;color:var(--text-primary)}
+.cta-form input:focus{border-color:var(--navy-mid)}
+.btn-navy{background:var(--navy);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px 26px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s;white-space:nowrap}
+.btn-navy:hover{background:var(--navy-mid)}
+
+/* ── FAQ ── */
+.faq-section{background:var(--surface)}
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.faq-q{width:100%;background:var(--surface);border:none;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:500;color:var(--navy);cursor:pointer;font-family:var(--font-body);text-align:left;gap:12px;transition:background 0.15s}
+.faq-q:hover{background:var(--surface-2)}
+.faq-q.open{background:var(--blue-50)}
+.faq-q i{font-size:18px;color:var(--text-muted);flex-shrink:0;transition:transform 0.25s}
+.faq-q.open i{transform:rotate(45deg);color:var(--navy-mid)}
+.faq-a{display:none;padding:0 20px 18px;font-size:14px;color:var(--text-secondary);line-height:1.75;background:var(--blue-50)}
+.faq-a.open{display:block}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--navy);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand .fb1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase}
+.footer-brand .fb2{font-size:15px;color:#fff;font-weight:500}
+.footer-brand .fb3{font-size:12px;color:var(--blue-200);font-style:italic;margin-top:3px}
+.footer-links{display:flex;gap:22px;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:var(--blue-200);text-decoration:none;transition:color 0.12s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px;color:#3a5580}
+
+@media(max-width:680px){
+  .topbar{padding:0 16px}.topbar-nav{display:none}
+  section,.hero,.cta-section{padding:52px 20px}
+  .site-footer{padding:24px 20px;flex-direction:column;align-items:flex-start}
+  .how-grid::before{display:none}
+  .hero h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a class="topbar-logo" href="#">
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="13" width="7" height="13" rx="1" stroke="#85b7eb" stroke-width="1.5"/>
+      <rect x="11" y="7" width="8" height="19" rx="1" stroke="#ffffff" stroke-width="1.5"/>
+      <rect x="20" y="10" width="7" height="16" rx="1" stroke="#85b7eb" stroke-width="1.5"/>
+      <line x1="1" y1="26" x2="29" y2="26" stroke="#85b7eb" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text">
+      <span class="l1">Real Estate</span>
+      <span class="l2">with Kossy</span>
+    </div>
+  </a>
+  <nav class="topbar-nav">
+    <a href="#">Home</a>
+    <a href="#">Listings</a>
+    <a href="#" class="active">Services</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="topbar-cta">Book consultation</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">What we do</div>
+  <h1>End-to-end real estate <em>services</em> you can trust</h1>
+  <p>From finding your dream home to closing complex commercial deals — Kossy handles every step with care, clarity and proven expertise.</p>
+  <div class="hero-btns">
+    <button class="btn-white">View all listings</button>
+    <button class="btn-outline-white">Talk to Kossy</button>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="sec-eyebrow">Our services</div>
+  <h2 class="sec-title">Everything real estate, under one roof</h2>
+  <p class="sec-sub">Whether you're buying, renting, investing or just need professional guidance — we have a service tailored for you.</p>
+  <div class="services-grid">
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-building-estate" aria-hidden="true"></i></div>
+      <h3>Property sales</h3>
+      <p>We connect buyers and sellers of premium residential and commercial properties across Nigeria's top markets. Every listing is personally vetted and legally verified before it reaches you.</p>
+      <span class="svc-tag">Buy &amp; sell</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-key" aria-hidden="true"></i></div>
+      <h3>Rentals</h3>
+      <p>Short and long-term rental listings in Lagos, Abuja and beyond. We handle negotiations, tenant vetting and lease agreements so both landlords and tenants enjoy a seamless experience.</p>
+      <span class="svc-tag">Short &amp; long term</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-home-search" aria-hidden="true"></i></div>
+      <h3>Property search</h3>
+      <p>Tell us exactly what you want — location, budget, size, features — and we'll do the legwork. We match you with verified properties that fit your brief, saving you time and stress.</p>
+      <span class="svc-tag">Tailored matching</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-file-certificate" aria-hidden="true"></i></div>
+      <h3>Documentation</h3>
+      <p>Navigating Nigerian property documents can be daunting. We provide full support with Certificates of Occupancy, deeds of assignment, governor's consent, surveys and all legal paperwork.</p>
+      <span class="svc-tag">C of O · Deeds · Surveys</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-tools" aria-hidden="true"></i></div>
+      <h3>Property management</h3>
+      <p>Own a property and don't want the hassle of day-to-day management? We handle tenant relations, maintenance, rent collection and periodic inspections on your behalf.</p>
+      <span class="svc-tag">Hands-off ownership</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-sofa" aria-hidden="true"></i></div>
+      <h3>Shortlets</h3>
+      <p>Premium furnished apartments available for short stays across Lagos and Abuja — ideal for business travellers, relocating families and visitors who want the comfort of home without the commitment.</p>
+      <span class="svc-tag">Daily · Weekly · Monthly</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-chart-arrows-vertical" aria-hidden="true"></i></div>
+      <h3>Property valuation</h3>
+      <p>Get an accurate, market-informed valuation of your property before selling, renting or refinancing. Our valuations are based on current market data, location intelligence and comparable sales.</p>
+      <span class="svc-tag">Market-accurate pricing</span>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></div>
+      <h3>Investment advisory</h3>
+      <p>Looking to grow your wealth through real estate? We provide strategic guidance on high-yield opportunities, off-plan investments and portfolio building across Nigeria's emerging and established markets.</p>
+      <span class="svc-tag">ROI-focused strategy</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="sec-eyebrow">How it works</div>
+  <h2 class="sec-title">Your journey from enquiry to keys</h2>
+  <p class="sec-sub">A simple, guided process designed to make real estate transactions feel effortless.</p>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="step-num">1</div>
+      <h4>Reach out</h4>
+      <p>Call, WhatsApp or fill in our form — Kossy responds personally within 24 hours.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">2</div>
+      <h4>Consultation</h4>
+      <p>We listen to your needs, budget and timeline and map out the right service for you.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">3</div>
+      <h4>Property matching</h4>
+      <p>We shortlist verified, legally sound properties that match your exact brief.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">4</div>
+      <h4>Inspection</h4>
+      <p>Tour properties in person or via a virtual walkthrough at a time that suits you.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">5</div>
+      <h4>Documentation</h4>
+      <p>We guide you through all paperwork, payments and legal requirements step by step.</p>
+    </div>
+    <div class="how-step">
+      <div class="step-num">6</div>
+      <h4>Handover</h4>
+      <p>Receive your keys, title documents or tenancy agreement — deal closed, stress-free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="sec-eyebrow">Client stories</div>
+  <h2 class="sec-title">What our clients say</h2>
+  <p class="sec-sub">Real experiences from people who trusted Kossy with their most important property decisions.</p>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"From the first call to handover of my duplex keys, Kossy was professional, responsive and completely transparent. I never felt lost in the process."</blockquote>
+      <div class="testi-author">
+        <div class="testi-av">CI</div>
+        <div>
+          <div class="testi-name">Chidinma Ibe</div>
+          <div class="testi-role">Homeowner · Lagos</div>
+          <div class="testi-svc">Property sales</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"I handed over my Ikoyi apartment to Kossy for management and haven't had a single headache since. Rent comes in on time, maintenance is sorted. Brilliant service."</blockquote>
+      <div class="testi-author">
+        <div class="testi-av">AO</div>
+        <div>
+          <div class="testi-name">Adebayo Ogundimu</div>
+          <div class="testi-role">Property owner · Abuja</div>
+          <div class="testi-svc">Property management</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"The documentation support alone was worth everything. I had no idea how complex C of O processing was — Kossy handled all of it without me losing a single day of sleep."</blockquote>
+      <div class="testi-author">
+        <div class="testi-av">EB</div>
+        <div>
+          <div class="testi-name">Emeka Bright</div>
+          <div class="testi-role">Investor · Lagos</div>
+          <div class="testi-svc">Documentation</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <blockquote>"I was in Abuja for a work trip and needed somewhere for two weeks. The shortlet Kossy arranged was better than any hotel I've stayed in. Fully stocked, gorgeous view."</blockquote>
+      <div class="testi-author">
+        <div class="testi-av">FA</div>
+        <div>
+          <div class="testi-name">Fatima Al-Rashid</div>
+          <div class="testi-role">Business traveller · Abuja</div>
+          <div class="testi-svc">Shortlets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="sec-title">Ready to get started?</h2>
+  <p class="cta-motto">Your Luxury, Our Guarantee</p>
+  <p>Leave your number or email and Kossy will be in touch personally within 24 hours.</p>
+  <div class="cta-form">
+    <input type="text" placeholder="Phone number or email address">
+    <button class="btn-navy">Get in touch</button>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="sec-eyebrow">FAQ</div>
+  <h2 class="sec-title">Frequently asked questions</h2>
+  <p class="sec-sub">Answers to the questions we hear most often from buyers, sellers and investors.</p>
+  <div class="faq-list" id="faqList">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How do I know a property listing is legitimate?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Every property on our platform is physically inspected by Kossy before being listed. We also verify all title documents — C of O, deed of assignment, survey plans — before making a property available. You will never be shown an unverified listing.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What locations do you cover?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">We currently have active listings and clients in Lagos (Lekki, Ikoyi, Victoria Island, Banana Island, Ajah, Ikeja), Abuja (Maitama, Asokoro, Wuse, Jabi, Gwarinpa) and select emerging markets in Port Harcourt and Ibadan. Contact us if you're looking outside these areas — we may still be able to help.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How much does it cost to use your services?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Our fees vary by service. For property sales and rentals, our standard agency commission is applied at completion — you pay nothing upfront. For property management, valuation and documentation services, we provide a clear fee schedule during your initial consultation. There are no hidden charges.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I search for a property without knowing exactly what I want?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Absolutely. Many of our clients come to us with a rough idea — a budget, a neighbourhood, or just a lifestyle they're imagining. Kossy will sit with you (in person or via video call), ask the right questions and help you define exactly what you need. From there, we do the search for you.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How long does the buying process typically take?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">This depends on the property type and documentation status. A straightforward purchase with clean title documents can be completed in 3 to 6 weeks. Properties requiring governor's consent or more complex documentation may take 8 to 12 weeks. We give you a realistic timeline at the outset and keep you updated throughout.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Do you help with off-plan or new development investments?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Yes. We work with a select number of reputable developers on off-plan opportunities — meaning you can purchase at a lower entry price before a development is completed. We vet every developer and project thoroughly before recommending them, so you only see opportunities we would invest in ourselves.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What documents do I need to bring when buying a property?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Typically you'll need a valid government-issued ID (national ID, passport or driver's licence), proof of income or funds, and your Tax Identification Number (TIN). For corporate purchases, additional company documents will be required. We'll give you a full, personalised checklist once we understand your specific transaction.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is it possible to invest in real estate from the diaspora?
+        <i class="ti ti-plus" aria-hidden="true"></i>
+      </button>
+      <div class="faq-a">Yes — and we work with several diaspora clients who manage everything remotely. We handle physical inspections, send detailed video walkthroughs, manage documentation on your behalf and can liaise with your local representative if needed. Many of our diaspora clients have never set foot on the properties they own through us.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-brand">
+    <div class="fb1">Real Estate</div>
+    <div class="fb2">with Kossy</div>
+    <div class="fb3">Your Luxury, Our Guarantee</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Home</a>
+    <a href="#">Listings</a>
+    <a href="#">Services</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Real Estate with Kossy. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleFaq(btn){
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(q=>{
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){
+    btn.classList.add('open');
+    answer.classList.add('open');
+    btn.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+</script>
+</body>
+</html>
