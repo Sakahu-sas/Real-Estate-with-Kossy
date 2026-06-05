@@ -21,17 +21,31 @@
 body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);min-height:100vh}
 
 /* ── TOPBAR ── */
-.topbar{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50}
-.topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.topbar-logo svg{width:30px;height:30px;flex-shrink:0}
-.logo-text .l1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase;display:block}
-.logo-text .l2{font-size:14px;color:#fff;font-weight:500;display:block;line-height:1.2}
-.topbar-nav{display:flex;gap:4px}
-.topbar-nav a{font-size:13px;color:var(--blue-200);text-decoration:none;padding:6px 14px;border-radius:var(--radius-sm);transition:all 0.15s}
-.topbar-nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
-.topbar-nav a.active{color:#fff;background:rgba(255,255,255,0.13)}
-.topbar-cta{background:#fff;color:var(--navy);border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
-.topbar-cta:hover{background:var(--blue-50)}
+  /*
+    .topbar{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50}
+    .topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .topbar-logo svg{width:30px;height:30px;flex-shrink:0}
+    .logo-text .l1{font-size:9px;color:var(--blue-200);letter-spacing:2px;text-transform:uppercase;display:block}
+    .logo-text .l2{font-size:14px;color:#fff;font-weight:500;display:block;line-height:1.2}
+    .topbar-nav{display:flex;gap:4px}
+    .topbar-nav a{font-size:13px;color:var(--blue-200);text-decoration:none;padding:6px 14px;border-radius:var(--radius-sm);transition:all 0.15s}
+    .topbar-nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+    .topbar-nav a.active{color:#fff;background:rgba(255,255,255,0.13)}
+    .topbar-cta{background:#fff;color:var(--navy);border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background 0.15s}
+    .topbar-cta:hover{background:var(--blue-50)} 
+  
+   /* NAV */
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 36px; background: #fff; border-bottom: 0.5px solid #dbe8f5; position: sticky; top: 0; z-index: 10; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo svg { width: 32px; height: 32px; }
+  .nav-logo-text { line-height: 1.1; }
+  .nav-logo-text .top { font-size: 10px; color: #4a6080; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; }
+  .nav-logo-text .bottom { font-size: 14px; color: #0c2461; font-weight: 500; letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 26px; }
+  .nav-links a { font-size: 13px; color: #4a6080; text-decoration: none; }
+  .nav-links a:hover { color: #185fa5; }
+  .nav-cta { background: #0c2461; color: #fff; border: none; border-radius: 6px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .nav-cta:hover { background: #185fa5; }
 
 /* ── HERO ── */
 .hero{background:var(--navy);padding:72px 40px 64px;text-align:center;position:relative;overflow:hidden}
@@ -134,6 +148,7 @@ section{padding:72px 40px}
 <body>
 
 <!-- TOPBAR -->
+<!--
 <header class="topbar">
   <a class="topbar-logo" href="#">
     <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,6 +171,29 @@ section{padding:72px 40px}
   </nav>
   <button class="topbar-cta">Book consultation</button>
 </header>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="14" width="8" height="14" rx="1" stroke="#0c2461" stroke-width="1.5"/>
+        <rect x="12" y="8" width="8" height="20" rx="1" stroke="#0c2461" stroke-width="1.5"/>
+        <rect x="20" y="11" width="8" height="17" rx="1" stroke="#0c2461" stroke-width="1.5"/>
+        <line x1="2" y1="28" x2="30" y2="28" stroke="#0c2461" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="nav-logo-text">
+        <div class="top">Real Estate</div>
+        <div class="bottom">with Kossy</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="listings.html">Listings</a>
+      <a href="services.html">Services</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="nav-cta">Book a consultation</button>
+  </nav>
 
 <!-- HERO -->
 <section class="hero">
